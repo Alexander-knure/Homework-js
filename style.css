@@ -57,6 +57,7 @@
 }
 
 .cell:hover {
+	cursor: pointer;
 	background-color:  rgb(180, 180, 180)
 }
 
@@ -77,8 +78,9 @@
 	border: 1px solid black;
 	display: block;
 	background-color: white;
+	/* transition: 0.9s ease all; */
 }
 
 #reset:hover {
-	background-color: tomato
+	background-color: tomato;
 }

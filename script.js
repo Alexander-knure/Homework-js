@@ -5,6 +5,7 @@ var nGames = 0;
 var nWinsO = 0;
 var arrayX = [];
 var arrayO = [];
+
 var cell = document.getElementsByClassName("cell");
 var msgTitle = document.getElementById("event");
 var msgWinX = document.getElementById("winX");
@@ -20,7 +21,8 @@ var matrixWin = [
     [2, 5, 8],
     [3, 6, 9],
     [1, 5, 9], 
-    [3, 5, 7]];
+    [3, 5, 7]
+];
 
 //var symb;
 //var currentSize = 3;
@@ -39,8 +41,8 @@ var matrixWin = [
 //		cols = true;
 //		rows = true;
 //		for (var row = 0; row < currentSize; row++) {
-//			cols &= (map[col][row] == symb);
-//			rows &= (map[row][col] == symb);
+//			cols = (map[col][row] == symb);
+//			rows = (map[row][col] == symb);
 //        }
 //        if (cols || rows) 
 //            return true; 
@@ -50,7 +52,25 @@ var matrixWin = [
 
 for (var i = 0; i < cell.length; i++) //9
     cell[i].addEventListener("click", currentStep);
-reset.addEventListener("click", resetField);
+reset.addEventListener("click", ()=>{
+    for (var i = 0; i < cell.length; i++)
+    cell[i].innerText = "";
+
+    stepCount = 0;
+    arrayO = [];
+    arrayX = [];
+    changecurrentPlayer();
+    nGames++;
+    if(isX == true)
+        msgTitle.innerText = "Ходит игрок: X";
+    else
+        msgTitle.innerText = "Ходит игрок: O";
+    msgCountGames.innerText = "Всего игр: " + nGames;
+    for (var i = 0; i < cell.length; i++) {
+        cell[i].addEventListener("click", currentStep);
+        cell[i].classList.remove("x", "o");
+    }
+});
 
 function changecurrentPlayer() {
     if (isX == true)
@@ -85,8 +105,6 @@ function checkWin(arr, number) {
 function currentStep() {
     var num = + this.getAttribute("N");
     if (!this.textContent) {
-        
-
         if (isX == true)
         {
             arrayX.push(num) && this.classList.add("x");
@@ -122,14 +140,14 @@ function currentStep() {
         if (stepCount >= 9) {
             msgTitle.innerText = "Ничья";
             nGames++;
-
             msgCountGames.innerText = "Всего игр: " + nGames;
-        } else
+        } 
+        else
         {
             if(isX == true)
-            msgTitle.innerText = "Ход игрока: X";
+                msgTitle.innerText = "Ход игрока: X";
             else
-            msgTitle.innerText = "Ход игрока: O";
+                msgTitle.innerText = "Ход игрока: O";
         }
     }
 }
@@ -141,7 +159,6 @@ function resetField() {
     stepCount = 0;
     arrayO = [];
     arrayX = [];
-    
     changecurrentPlayer();
     nGames++;
     if(isX == true)
@@ -153,26 +170,4 @@ function resetField() {
         cell[i].addEventListener("click", currentStep);
         cell[i].classList.remove("x", "o");
     }
-}
-
-function changeSizeField() {
-    for (var i = 0; i < cell.length; i++)
-        cell[i].innerText = "";
-
-    stepCount = 0;
-    arrayO = [];
-    arrayX = [];
-    changecurrentPlayer();
-    nGames++;
-    
-    if(isX == true)
-        msgTitle.innerText = "Ходит игрок: X";
-    else
-         msgTitle.innerText = "Ходит игрок: O";
-    msgCountGames.innerText = "Всего игр: " + nGames;
-    for (var i = 0; i < cell.length; i++) {
-        cell[i].addEventListener("click", currentStep);
-        cell[i].classList.remove("x", "o");
-    }
-}
-	
+}	
